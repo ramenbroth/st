@@ -6,6 +6,12 @@
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
+/* Spare fonts */
+static char *font2[] = {
+/*	"Inconsolata for Powerline:pixelsize=12:antialias=true:autohint=true", */
+/*	"Hack Nerd Font Mono:pixelsize=11:antialias=true:autohint=true", */
+};
+
 static int borderpx = 2;
 
 /*
@@ -16,7 +22,7 @@ static int borderpx = 2;
  * 4: value of shell in /etc/passwd
  * 5: value of shell in config.h
  */
-static char *shell = "/bin/sh";
+static char *shell = "/bin/fish";
 char *utmp = NULL;
 char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
 
@@ -82,33 +88,36 @@ char *termname = "st-256color";
  */
 unsigned int tabspaces = 8;
 
+/* bg opacity */
+float alpha = 0.8;
+
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
 	/* 8 normal colors */
-	"black",
-	"red3",
-	"green3",
-	"yellow3",
-	"blue2",
-	"magenta3",
-	"cyan3",
-	"gray90",
+	"#3b4252", /* black   */
+	"#bf616a", /* red     */
+	"#a3be8c", /* green   */
+	"#ebcb8b", /* yellow  */
+	"#81a1c1", /* blue    */
+	"#b48ead", /* magenta */
+	"#88c0d0", /* cyan    */
+	"#e5e9f0", /* white   */
 
 	/* 8 bright colors */
-	"gray50",
-	"red",
-	"green",
-	"yellow",
-	"#5c5cff",
-	"magenta",
-	"cyan",
-	"white",
+	"#4c566a", /* black   */
+	"#bf616a", /* red     */
+	"#a3be8c", /* green   */
+	"#ebcb8b", /* yellow  */
+	"#81a1c1", /* blue    */
+	"#b48ead", /* magenta */
+	"#8fbcbb", /* cyan    */
+	"#eceff4", /* white   */
 
 	[255] = 0,
 
 	/* more colors can be added after 255 to use with DefaultXX */
-	"#cccccc",
-	"#555555",
+	"#2e3440", /* background */
+	"#d8dee9", /* foreground */
 };
 
 
@@ -116,10 +125,10 @@ static const char *colorname[] = {
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
  */
-unsigned int defaultfg = 7;
-unsigned int defaultbg = 0;
-static unsigned int defaultcs = 256;
-static unsigned int defaultrcs = 257;
+unsigned int defaultfg = 257;
+unsigned int defaultbg = 256;
+static unsigned int defaultcs = 257;
+static unsigned int defaultrcs = 256;
 
 /*
  * Default shape of cursor
@@ -163,6 +172,8 @@ static uint forcemousemod = ShiftMask;
  */
 static MouseShortcut mshortcuts[] = {
 	/* mask                 button   function        argument       release */
+	{ ShiftMask,            Button4, kscrollup,      {.i = 1} },
+	{ ShiftMask,            Button5, kscrolldown,    {.i = 1} },
 	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},      1 },
 	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
 	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"} },
@@ -186,6 +197,8 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
+	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
+	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
 };
 
 /*
