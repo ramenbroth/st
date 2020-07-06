@@ -1,4 +1,4 @@
-#include "nord.h"
+#include "gruvbox-dark.h"
 /* See LICENSE file for copyright and license details. */
 
 /*
