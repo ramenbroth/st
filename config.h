@@ -1,4 +1,4 @@
-#include "gruvbox-dark.h"
+#include "gruvbox-dark-contrast.h"
 /* See LICENSE file for copyright and license details. */
 
 /*
